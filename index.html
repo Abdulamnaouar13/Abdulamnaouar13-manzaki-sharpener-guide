@@ -1,4 +1,4 @@
-
+<!doctype html>
 <html lang="es">
 <head>
 <meta charset="utf-8">
@@ -53,7 +53,9 @@ html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
 
 body {
   margin: 0;
-  background: var(--ink);
+  background:
+    radial-gradient(circle at 50% 8%, rgba(196,165,46,.10), transparent 30rem),
+    linear-gradient(180deg, #151b1b 0%, var(--ink) 32rem, #0e1212 100%);
   color: var(--paper);
   font-family: var(--font-body);
   font-size: var(--step-0);
@@ -116,6 +118,23 @@ img, video, svg { max-width: 100%; height: auto; display: block; }
   color: var(--gold); margin: 0 0 1rem;
 }
 .lead { font-size: var(--step-1); color: var(--paper); max-width: 32rem; }
+
+.opening {
+  position: relative;
+  margin-bottom: 1.6rem;
+  padding: clamp(1.2rem, 3vw, 1.8rem);
+  border: 1px solid rgba(196,165,46,.18);
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(32,38,38,.96), rgba(20,26,26,.90));
+  box-shadow: 0 14px 36px rgba(0,0,0,.18);
+}
+.opening::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 1rem; bottom: 1rem; width: 3px;
+  background: var(--gold);
+  border-radius: 99px;
+}
 
 .cta-row { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 2rem; }
 
@@ -521,15 +540,77 @@ body.hc .opt input:checked + .opt__box { background: #000; outline: 2px solid va
 }
 
 /* =========================================================================
+   Aviso para cuchillos grandes / hojas altas
+   ========================================================================= */
+.large-knife-note {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1rem;
+  align-items: start;
+  margin: 1.25rem 0 2rem;
+  padding: 1rem 1.1rem;
+  border: 1px solid rgba(196,165,46,.48);
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(196,165,46,.14), rgba(244,242,234,.05));
+  box-shadow: 0 12px 30px rgba(0,0,0,.18);
+}
+.large-knife-note__icon {
+  display: grid;
+  place-items: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 50%;
+  background: var(--gold);
+  color: var(--ink);
+  font-size: 1.35rem;
+  font-weight: 800;
+}
+.large-knife-note h2 {
+  margin: 0 0 .3rem;
+  font-family: var(--font-body);
+  font-size: var(--step-0);
+  font-weight: 700;
+  color: var(--gold);
+}
+.large-knife-note p {
+  margin: 0;
+  max-width: 58rem;
+  color: var(--paper);
+  font-size: var(--step--1);
+}
+@media (max-width: 30rem) {
+  .large-knife-note { grid-template-columns: 1fr; }
+  .large-knife-note__icon { width: 2.2rem; height: 2.2rem; }
+}
+
+/* =========================================================================
    Quiénes somos
    ========================================================================= */
 .about {
   margin-block: clamp(2.5rem, 8vw, 4.5rem);
-  border-top: 1px solid var(--ink-3); padding-top: clamp(1.5rem, 4vw, 2.5rem);
+  padding: clamp(1.5rem, 5vw, 3rem);
+  border: 1px solid rgba(196,165,46,.28);
+  border-radius: 18px;
+  background:
+    linear-gradient(135deg, rgba(244,242,234,.98), rgba(234,226,202,.96));
+  color: var(--ink);
+  box-shadow: 0 20px 55px rgba(0,0,0,.22);
+  position: relative;
+  overflow: hidden;
 }
-.about h2 { max-width: 14ch; }
-.about p { color: var(--paper-dim); max-width: 46ch; }
-.about p:first-of-type { color: var(--paper); font-size: var(--step-1); }
+.about::after {
+  content: "";
+  position: absolute;
+  width: 14rem; height: 14rem;
+  right: -5rem; top: -6rem;
+  border-radius: 50%;
+  background: rgba(196,165,46,.14);
+  pointer-events: none;
+}
+.about h2 { max-width: 18ch; color: var(--ink); }
+.about .eyebrow { color: #8d7621; }
+.about p { color: #3f4543; max-width: 54ch; }
+.about p:first-of-type { color: var(--ink); font-size: var(--step-1); }
 
 .card--review { margin-top: 1.5rem; border-top-color: var(--gold); }
 .card--review h3 { margin-bottom: .5rem; }
@@ -727,21 +808,11 @@ window.MANZAKI_CONFIG = {
    *   { type: 'vimeo',   id: '123456789' }
    *   null  -> se muestra un marcador y la guía sigue funcionando.
    */
-  video: null, _video: {
+  video: {
     type: 'file',
-    src: 'assets/video/afilador-720p.mp4',
-    poster: 'assets/video/poster.jpg',
-    /**
-     * Subtítulos WebVTT. Contenido descriptivo: el vídeo actual no tiene voz en off.
-     * Deben revisarse contra la mezcla de audio definitiva antes de publicar.
-     */
-    captions: {
-      es: 'assets/video/captions/es.vtt',
-      en: 'assets/video/captions/en.vtt',
-      de: 'assets/video/captions/de.vtt',
-      fr: 'assets/video/captions/fr.vtt',
-      it: 'assets/video/captions/it.vtt'
-    }
+    src: 'assets/video/afilador-uso.mp4',
+    poster: 'assets/video/afilador-uso-poster.jpg',
+    captions: {}
   },
 
   /** Contacto de soporte. */
@@ -886,6 +957,8 @@ window.MANZAKI_I18N.es = {
 
   'q3.title': '¿Qué cuchillo vas a afilar?',
   'q3.help': 'El tipo de hoja solo sirve como punto de partida cuando no conoces el ángulo del fabricante.',
+  'largeknife.title': '¿Cuchillo grande o de hoja alta?',
+  'largeknife.body': 'Si el disco no llega a todo el filo con el cilindro completamente plano, coloca el rodillo sobre una tabla de cortar firme, plana y antideslizante. Usa solo la altura necesaria para que el disco alcance el filo y no inclines el cilindro.',
   'q3.jp_double': 'Japonés fino de doble bisel',
   'q3.jp_double.d': 'Hoja fina, acero duro, afilado por las dos caras.',
   'q3.fillet': 'Fileteador o loncheador',
@@ -1155,11 +1228,11 @@ window.MANZAKI_I18N.es = {
   /* --- catalogo, marca, tecnica y resenas --- */
   'q3.carving': 'Cuchillo para trinchar',
   'q3.carving.d': 'Hoja larga y estrecha para cortar asados y carnes.',
-  'about.eyebrow': 'Detrás de MANZAKI',
-  'about.title': 'Esto nació en una cocina, no en un catálogo.',
-  'about.p1': 'Somos una marca pequeña. Gente que cocina a diario y que acabó fabricando las herramientas que no encontraba.',
-  'about.p2': 'Hacemos un producto cada vez y no sacamos ninguno hasta que nos convence de verdad. Este afilador es el último.',
-  'about.p3': 'Por eso existe esta guía. Un cuchillo que corta es más seguro que uno romo, y hace de la cocina un sitio en el que da gusto estar.',
+  'about.eyebrow': 'Nuestra historia',
+  'about.title': 'Nació de una pasión por cocinar mejor.',
+  'about.p1': 'MANZAKI es una pequeña marca creada por personas que cocinan de verdad. Nos apasiona preparar comida en casa y creemos que una buena herramienta cambia por completo la experiencia en la cocina.',
+  'about.p2': 'Buscábamos un afilador sencillo, bonito y preciso que nosotros mismos quisiéramos tener sobre la encimera. No encontramos exactamente lo que queríamos, así que decidimos crear el nuestro: probar, ajustar y mejorar hasta que nos convenciera.',
+  'about.p3': 'Seguimos siendo una empresa pequeña, y eso nos permite cuidar los detalles. Esta guía forma parte de esa idea: ayudarte a sacar el mejor rendimiento de tus cuchillos y disfrutar más de cada corte.',
   'review.title': '¿Nos echas una mano?',
   'review.lead': 'Somos una empresa pequeña y tu comentario en Amazon nos ayudaría muchísimo.',
   'review.cta': 'Dejar una reseña en Amazon',
@@ -1184,7 +1257,7 @@ window.MANZAKI_I18N.es = {
   'scene.s3': 'Apoya el rodillo completamente plano y deslízalo del talón a la punta y de vuelta.',
 
   /* --- marca arriba, resenas y cierre --- */
-  'brand.short': 'MANZAKI es una marca pequeña de utensilios de cocina. Un producto cada vez, y ninguno hasta que nos convence.',
+  'brand.short': 'Nos apasiona la cocina. Creamos herramientas que nosotros mismos queremos usar, cuidando cada detalle.',
   'pick.none': 'Mi cuchillo no está aquí',
   'pick.none.d': 'Te decimos qué comprobar antes de afilarlo.',
   'review.top': 'Déjanos tu reseña',
@@ -1290,6 +1363,8 @@ window.MANZAKI_I18N.en = {
 
   'q3.title': 'Which knife are you sharpening?',
   'q3.help': 'The blade type is only a starting point when you do not know the maker\u2019s angle.',
+  'largeknife.title': 'Large or tall-bladed knife?',
+  'largeknife.body': 'If the disc cannot reach the whole edge while the cylinder stays completely flat, place the roller on a firm, flat, non-slip cutting board. Raise it only as much as needed for the disc to reach the edge, and never tilt the cylinder.',
   'q3.jp_double': 'Thin Japanese double bevel',
   'q3.jp_double.d': 'Thin blade, hard steel, ground on both faces.',
   'q3.fillet': 'Filleting or slicing knife',
@@ -1559,11 +1634,11 @@ window.MANZAKI_I18N.en = {
   /* --- catalogo, marca, tecnica y resenas --- */
   'q3.carving': 'Carving knife',
   'q3.carving.d': 'Long, narrow blade for roasts and meat.',
-  'about.eyebrow': 'Behind MANZAKI',
-  'about.title': 'This started in a kitchen, not in a catalogue.',
-  'about.p1': 'We are a small brand. People who cook every day and ended up making the tools they could not find.',
-  'about.p2': 'We make one product at a time and we release none of them until it truly convinces us. This sharpener is the latest.',
-  'about.p3': 'That is why this guide exists. A knife that cuts is safer than a blunt one, and it makes the kitchen a place you enjoy being in.',
+  'about.eyebrow': 'Our story',
+  'about.title': 'Born from a passion for better cooking.',
+  'about.p1': 'MANZAKI is a small brand created by people who genuinely cook. We love preparing food at home and believe that a good tool can completely change the experience in the kitchen.',
+  'about.p2': 'We wanted a sharpener that was simple, beautiful and precise — something we would be happy to keep on our own worktop. We could not find exactly what we wanted, so we decided to create our own, testing, adjusting and improving it until it felt right.',
+  'about.p3': 'We are still a small company, and that lets us pay attention to the details. This guide is part of that idea: helping you get the best from your knives and enjoy every cut a little more.',
   'review.title': 'Would you give us a hand?',
   'review.lead': 'We are a small company and your review on Amazon would help us enormously.',
   'review.cta': 'Leave a review on Amazon',
@@ -1588,7 +1663,7 @@ window.MANZAKI_I18N.en = {
   'scene.s3': 'Rest the roller completely flat and slide it from heel to tip and back.',
 
   /* --- marca arriba, resenas y cierre --- */
-  'brand.short': 'MANZAKI is a small kitchenware brand. One product at a time, and none of them until it convinces us.',
+  'brand.short': 'We love cooking. We create tools we genuinely want to use ourselves, with attention to every detail.',
   'pick.none': 'My knife is not here',
   'pick.none.d': 'We will tell you what to check before sharpening it.',
   'review.top': 'Leave us a review',
@@ -1694,6 +1769,8 @@ window.MANZAKI_I18N.de = {
 
   'q3.title': 'Welches Messer schärfen Sie?',
   'q3.help': 'Der Klingentyp dient nur als Ausgangspunkt, wenn Sie den Herstellerwinkel nicht kennen.',
+  'largeknife.title': 'Großes Messer oder hohe Klinge?',
+  'largeknife.body': 'Wenn die Scheibe bei vollständig flach gehaltenem Zylinder nicht die ganze Schneide erreicht, stellen Sie den Roller auf ein festes, ebenes und rutschfestes Schneidebrett. Erhöhen Sie ihn nur so weit, bis die Scheibe die Schneide erreicht, und kippen Sie den Zylinder nicht.',
   'q3.jp_double': 'Dünnes japanisches Messer mit beidseitigem Schliff',
   'q3.jp_double.d': 'Dünne Klinge, harter Stahl, auf beiden Seiten geschliffen.',
   'q3.fillet': 'Filier- oder Aufschnittmesser',
@@ -1963,11 +2040,11 @@ window.MANZAKI_I18N.de = {
   /* --- catalogo, marca, tecnica y resenas --- */
   'q3.carving': 'Tranchiermesser',
   'q3.carving.d': 'Lange, schmale Klinge für Braten und Fleisch.',
-  'about.eyebrow': 'Hinter MANZAKI',
-  'about.title': 'Das ist in einer Küche entstanden, nicht in einem Katalog.',
-  'about.p1': 'Wir sind eine kleine Marke. Leute, die täglich kochen und irgendwann die Werkzeuge gebaut haben, die sie nicht fanden.',
-  'about.p2': 'Wir machen ein Produkt nach dem anderen, und keines kommt heraus, bevor es uns wirklich überzeugt. Dieser Schärfer ist das jüngste.',
-  'about.p3': 'Deshalb gibt es diese Anleitung. Ein Messer, das schneidet, ist sicherer als ein stumpfes, und es macht die Küche zu einem Ort, an dem man gern steht.',
+  'about.eyebrow': 'Unsere Geschichte',
+  'about.title': 'Aus Leidenschaft für besseres Kochen entstanden.',
+  'about.p1': 'MANZAKI ist eine kleine Marke von Menschen, die wirklich kochen. Wir lieben es, zu Hause Essen zuzubereiten, und glauben, dass ein gutes Werkzeug das Erlebnis in der Küche grundlegend verändern kann.',
+  'about.p2': 'Wir suchten einen einfachen, schönen und präzisen Messerschärfer, den wir selbst gern auf der Arbeitsplatte stehen hätten. Weil wir nicht genau das fanden, was wir wollten, entwickelten wir unseren eigenen — testen, anpassen und verbessern, bis er uns überzeugte.',
+  'about.p3': 'Wir sind weiterhin ein kleines Unternehmen, und genau deshalb können wir auf die Details achten. Diese Anleitung gehört zu dieser Idee: Sie soll dir helfen, das Beste aus deinen Messern herauszuholen und jeden Schnitt mehr zu genießen.',
   'review.title': 'Helfen Sie uns kurz?',
   'review.lead': 'Wir sind ein kleines Unternehmen, und Ihre Bewertung bei Amazon würde uns enorm helfen.',
   'review.cta': 'Bei Amazon bewerten',
@@ -1992,7 +2069,7 @@ window.MANZAKI_I18N.de = {
   'scene.s3': 'Den Roller vollständig flach aufsetzen und vom Kropf zur Spitze und zurück führen.',
 
   /* --- marca arriba, resenas y cierre --- */
-  'brand.short': 'MANZAKI ist eine kleine Marke für Küchenwerkzeug. Ein Produkt nach dem anderen, und keines, bevor es uns überzeugt.',
+  'brand.short': 'Wir lieben das Kochen. Wir entwickeln Werkzeuge, die wir selbst gern benutzen möchten, mit Liebe zum Detail.',
   'pick.none': 'Mein Messer ist nicht dabei',
   'pick.none.d': 'Wir sagen Ihnen, was Sie vor dem Schärfen prüfen sollten.',
   'review.top': 'Bewerten Sie uns',
@@ -2098,6 +2175,8 @@ window.MANZAKI_I18N.fr = {
 
   'q3.title': 'Quel couteau allez-vous affûter ?',
   'q3.help': 'Le type de lame ne sert de point de départ que si vous ignorez l\u2019angle du fabricant.',
+  'largeknife.title': 'Grand couteau ou lame haute ?',
+  'largeknife.body': 'Si le disque n’atteint pas tout le tranchant lorsque le cylindre reste parfaitement à plat, placez le rouleau sur une planche à découper ferme, plane et antidérapante. Surélevez-le uniquement de la hauteur nécessaire pour atteindre le tranchant, sans incliner le cylindre.',
   'q3.jp_double': 'Japonais fin à double biseau',
   'q3.jp_double.d': 'Lame fine, acier dur, aiguisé sur les deux faces.',
   'q3.fillet': 'Couteau à filet ou à trancher',
@@ -2367,11 +2446,11 @@ window.MANZAKI_I18N.fr = {
   /* --- catalogo, marca, tecnica y resenas --- */
   'q3.carving': 'Couteau à trancher',
   'q3.carving.d': 'Lame longue et étroite pour les rôtis et les viandes.',
-  'about.eyebrow': 'Derrière MANZAKI',
-  'about.title': 'Tout est né dans une cuisine, pas dans un catalogue.',
-  'about.p1': 'Nous sommes une petite marque. Des gens qui cuisinent tous les jours et qui ont fini par fabriquer les outils qu’ils ne trouvaient pas.',
-  'about.p2': 'Nous faisons un produit à la fois et nous n’en sortons aucun tant qu’il ne nous convainc pas vraiment. Cet affûteur est le dernier.',
-  'about.p3': 'C’est pour cela que ce guide existe. Un couteau qui coupe est plus sûr qu’un couteau émoussé, et il fait de la cuisine un endroit où l’on a plaisir à être.',
+  'about.eyebrow': 'Notre histoire',
+  'about.title': 'Né de la passion de mieux cuisiner.',
+  'about.p1': 'MANZAKI est une petite marque créée par des personnes qui cuisinent vraiment. Nous aimons préparer les repas à la maison et nous pensons qu’un bon outil peut complètement changer l’expérience en cuisine.',
+  'about.p2': 'Nous cherchions un affûteur simple, beau et précis, que nous aurions nous-mêmes plaisir à garder sur notre plan de travail. Comme nous ne trouvions pas exactement ce que nous voulions, nous avons créé le nôtre, en le testant, l’ajustant et l’améliorant jusqu’à ce qu’il nous convainque.',
+  'about.p3': 'Nous restons une petite entreprise, ce qui nous permet de soigner les détails. Ce guide fait partie de cette idée : vous aider à tirer le meilleur de vos couteaux et à apprécier davantage chaque coupe.',
   'review.title': 'Vous nous donnez un coup de main ?',
   'review.lead': 'Nous sommes une petite entreprise et votre avis sur Amazon nous aiderait énormément.',
   'review.cta': 'Laisser un avis sur Amazon',
@@ -2396,7 +2475,7 @@ window.MANZAKI_I18N.fr = {
   'scene.s3': 'Posez le rouleau bien à plat et faites-le glisser du talon à la pointe puis en retour.',
 
   /* --- marca arriba, resenas y cierre --- */
-  'brand.short': 'MANZAKI est une petite marque d’ustensiles de cuisine. Un produit à la fois, et aucun tant qu’il ne nous convainc pas.',
+  'brand.short': 'Nous aimons cuisiner. Nous créons des outils que nous voulons réellement utiliser nous-mêmes, avec le souci du détail.',
   'pick.none': 'Mon couteau n’est pas là',
   'pick.none.d': 'Nous vous dirons quoi vérifier avant de l’affûter.',
   'review.top': 'Laissez-nous un avis',
@@ -2502,6 +2581,8 @@ window.MANZAKI_I18N.it = {
 
   'q3.title': 'Quale coltello vuoi affilare?',
   'q3.help': 'Il tipo di lama serve come punto di partenza solo quando non conosci l\u2019angolo del produttore.',
+  'largeknife.title': 'Coltello grande o lama alta?',
+  'largeknife.body': 'Se il disco non raggiunge tutto il filo mantenendo il cilindro completamente piatto, appoggia il rullo su un tagliere stabile, piano e antiscivolo. Sollevalo solo quanto basta perché il disco raggiunga il filo e non inclinare il cilindro.',
   'q3.jp_double': 'Giapponese sottile a doppia smussatura',
   'q3.jp_double.d': 'Lama sottile, acciaio duro, affilato su entrambe le facce.',
   'q3.fillet': 'Coltello per filetti o per affettare',
@@ -2771,11 +2852,11 @@ window.MANZAKI_I18N.it = {
   /* --- catalogo, marca, tecnica y resenas --- */
   'q3.carving': 'Coltello per arrosti',
   'q3.carving.d': 'Lama lunga e stretta per arrosti e carni.',
-  'about.eyebrow': 'Dietro MANZAKI',
-  'about.title': 'È nato in una cucina, non in un catalogo.',
-  'about.p1': 'Siamo un marchio piccolo. Gente che cucina ogni giorno e che ha finito per costruire gli attrezzi che non trovava.',
-  'about.p2': 'Facciamo un prodotto alla volta e non ne facciamo uscire nessuno finché non ci convince davvero. Questo affilatore è l’ultimo.',
-  'about.p3': 'Per questo esiste questa guida. Un coltello che taglia è più sicuro di uno smussato, e rende la cucina un posto in cui si sta volentieri.',
+  'about.eyebrow': 'La nostra storia',
+  'about.title': 'Nato dalla passione per una cucina migliore.',
+  'about.p1': 'MANZAKI è un piccolo marchio creato da persone che cucinano davvero. Amiamo preparare il cibo a casa e crediamo che un buon utensile possa cambiare completamente l’esperienza in cucina.',
+  'about.p2': 'Cercavamo un affilatore semplice, bello e preciso, qualcosa che avremmo voluto tenere anche sul nostro piano di lavoro. Non trovando esattamente ciò che volevamo, abbiamo deciso di crearne uno nostro, provandolo, regolando i dettagli e migliorandolo finché non ci ha convinti.',
+  'about.p3': 'Siamo ancora una piccola azienda, e questo ci permette di curare i dettagli. Questa guida fa parte della stessa idea: aiutarti a ottenere il meglio dai tuoi coltelli e a goderti un po’ di più ogni taglio.',
   'review.title': 'Ci dai una mano?',
   'review.lead': 'Siamo un’azienda piccola e la tua recensione su Amazon ci aiuterebbe moltissimo.',
   'review.cta': 'Lascia una recensione su Amazon',
@@ -2800,7 +2881,7 @@ window.MANZAKI_I18N.it = {
   'scene.s3': 'Appoggia il rullo completamente in piano e falla scorrere dal tallone alla punta e ritorno.',
 
   /* --- marca arriba, resenas y cierre --- */
-  'brand.short': 'MANZAKI è un piccolo marchio di utensili da cucina. Un prodotto alla volta, e nessuno finché non ci convince.',
+  'brand.short': 'Amiamo cucinare. Creiamo utensili che vogliamo davvero usare anche noi, curando ogni dettaglio.',
   'pick.none': 'Il mio coltello non c’è',
   'pick.none.d': 'Ti diciamo che cosa controllare prima di affilarlo.',
   'review.top': 'Lasciaci una recensione',
@@ -2909,6 +2990,8 @@ window.MANZAKI_I18N.nl = {
   'q2.total.hint': 'Totale snijhoek: {n}°',
   'q3.title': 'Welk mes ga je slijpen?',
   'q3.help': 'Het type lemmet is alleen een startpunt als je de hoek van de fabrikant niet kent.',
+  'largeknife.title': 'Groot mes of hoog lemmet?',
+  'largeknife.body': 'Als de schijf niet de hele snede bereikt terwijl de cilinder volledig vlak blijft, plaats je de roller op een stevige, vlakke en antislip snijplank. Verhoog hem alleen genoeg om de snede te bereiken en kantel de cilinder niet.',
   'q3.jp_double': 'Dun Japans mes met dubbele slijpkant',
   'q3.jp_double.d': 'Dun lemmet, hard staal, aan beide zijden geslepen.',
   'q3.fillet': 'Fileer- of snijmes',
@@ -3160,11 +3243,11 @@ window.MANZAKI_I18N.nl = {
   'fb.skip': 'Nu niet',
   'q3.carving': 'Vleesmes',
   'q3.carving.d': 'Lang, smal lemmet voor gebraad en vlees.',
-  'about.eyebrow': 'Achter MANZAKI',
-  'about.title': 'Dit is in een keuken ontstaan, niet in een catalogus.',
-  'about.p1': 'We zijn een klein merk. Mensen die elke dag koken en uiteindelijk de gereedschappen zijn gaan maken die ze niet konden vinden.',
-  'about.p2': 'We maken één product tegelijk en we brengen er geen enkel uit voordat het ons echt overtuigt. Deze slijper is de laatste.',
-  'about.p3': 'Daarom bestaat deze gids. Een mes dat snijdt is veiliger dan een bot mes, en het maakt van de keuken een plek waar je graag staat.',
+  'about.eyebrow': 'Ons verhaal',
+  'about.title': 'Ontstaan uit een passie voor beter koken.',
+  'about.p1': 'MANZAKI is een klein merk, opgericht door mensen die echt koken. We houden ervan om thuis eten te bereiden en geloven dat goed keukengereedschap de hele ervaring in de keuken kan veranderen.',
+  'about.p2': 'We zochten een eenvoudige, mooie en nauwkeurige messenslijper die we zelf graag op het aanrecht zouden hebben. We vonden niet precies wat we wilden, dus besloten we er zelf een te maken: testen, bijstellen en verbeteren tot het goed voelde.',
+  'about.p3': 'We zijn nog steeds een klein bedrijf en daardoor kunnen we aandacht aan de details geven. Deze gids hoort bij die gedachte: je helpen het beste uit je messen te halen en meer plezier te hebben van elke snede.',
   'review.title': 'Help je ons even?',
   'review.lead': 'We zijn een klein bedrijf en jouw recensie op Amazon zou ons enorm helpen.',
   'review.cta': 'Laat een recensie achter op Amazon',
@@ -3187,7 +3270,7 @@ window.MANZAKI_I18N.nl = {
   'scene.s1': 'Draai de basis tot jouw hoek bovenaan staat en zet hem op een vlak werkblad.',
   'scene.s2': 'Leg de vlakke zijde van het lemmet tegen de magneet, snede omhoog en van je handen af.',
   'scene.s3': 'Leg de roller volledig vlak neer en schuif hem van hiel tot punt en terug.',
-  'brand.short': 'MANZAKI is een klein merk in keukengerei. Eén product tegelijk, en geen enkel voordat het ons overtuigt.',
+  'brand.short': 'We houden van koken. We maken gereedschap dat we zelf echt willen gebruiken, met aandacht voor elk detail.',
   'pick.none': 'Mijn mes staat er niet bij',
   'pick.none.d': 'We vertellen je wat je moet controleren voordat je het slijpt.',
   'review.top': 'Laat een recensie achter',
@@ -3968,7 +4051,7 @@ const PHOTOS={"chef": "data:image/webp;base64,UklGRoZhAABXRUJQVlA4WAoAAAAQAAAAgw
   function viewKnifePicker() {
     return `
       <div class="product-film" aria-hidden="true">
-        <video class="product-film__video" autoplay muted playsinline preload="metadata"
+        <video class="product-film__video" autoplay muted loop playsinline preload="auto"
           poster="assets/video/manzaki-product-animation-poster.jpg">
           <source src="assets/video/manzaki-product-animation.mp4" type="video/mp4">
         </video>
@@ -3980,6 +4063,14 @@ const PHOTOS={"chef": "data:image/webp;base64,UklGRoZhAABXRUJQVlA4WAoAAAAQAAAAgw
         <p class="lead">${esc(t('home.lead'))}</p>
         <p class="brand-line">${esc(t('brand.short'))}</p>
       </section>
+
+      <aside class="large-knife-note" aria-labelledby="large-knife-title">
+        <div class="large-knife-note__icon" aria-hidden="true">↥</div>
+        <div>
+          <h2 id="large-knife-title">${esc(t('largeknife.title'))}</h2>
+          <p>${esc(t('largeknife.body'))}</p>
+        </div>
+      </aside>
 
       <ul class="picks">
         ${KNIVES.map(knifeCard).join('')}
@@ -4023,7 +4114,7 @@ const PHOTOS={"chef": "data:image/webp;base64,UklGRoZhAABXRUJQVlA4WAoAAAAQAAAAgw
         `<track kind="captions" srclang="${l}" label="${esc(DICTS[l] ? DICTS[l]['lang.name'] : l)}"
                 src="${esc(v.captions[l])}"${l === lang ? ' default' : ''}>`).join('');
       return `<div class="video__frame">
-        <video controls playsinline preload="none" poster="${esc(v.poster || '')}"
+        <video controls muted playsinline preload="metadata" poster="${esc(v.poster || '')}"
                aria-label="${esc(t('video.title'))}">${tracks}
           <source src="${esc(v.src)}" type="video/mp4">
         </video></div>`;
@@ -4647,7 +4738,7 @@ const PHOTOS={"chef": "data:image/webp;base64,UklGRoZhAABXRUJQVlA4WAoAAAAQAAAAgw
   mountSocialLinks();
   updateStructuredData();
   if (app) { restore(); render(); }
-   })();
+})();
 
 </script>
 </body>
